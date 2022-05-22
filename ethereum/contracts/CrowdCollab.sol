@@ -1,4 +1,4 @@
-pragma solidity ^0.4.25;
+pragma solidity ^0.5.0;
 
 /**
  * @title Crowd fund smart contract, demonstration to solve problem of center crowd fund model
@@ -13,7 +13,7 @@ contract CrowdCollab {
     struct Request {
         string description;
         uint amount;
-        address recipient;
+        address payable recipient;
         bool complete;
         mapping(address=>bool) approvals;
         uint approvalCount; 
@@ -54,7 +54,7 @@ contract CrowdCollab {
      * @param minContribution minimum money can contribute for project (in ETH)
      * @param description description of campaign, purpose of campaign
      */
-    constructor(address creator, uint minContribution, string description) public {  
+    constructor(address creator, uint minContribution, string memory description) public {  
         manager = creator;
         minimumContribution = minContribution;
         campaignDescription = description;
@@ -82,7 +82,7 @@ contract CrowdCollab {
      * @param amount total money need for expense items
      * @param recipient who, which address will reiceive money when request is approved
      */
-    function createRequest(string description, uint amount, address recipient) 
+    function createRequest(string memory description, uint amount,address payable recipient) 
         public managerOnly {
         Request memory newRequest = Request({
             description: description,
