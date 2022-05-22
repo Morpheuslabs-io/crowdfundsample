@@ -1,4 +1,4 @@
-pragma solidity ^0.4.25;
+pragma solidity ^0.5.0;
 
 import "./CrowdCollab.sol";
 
@@ -15,12 +15,12 @@ contract CampaignCreator {
     * @param minContribution minimum money can contribute for project (in ETH)
     * @param description description of campaign, purpose of campaign
     */
-    function createCampaign(uint minContribution, string description) public {
-        address newCampaign = new CrowdCollab(
+    function createCampaign(uint minContribution, string memory description) public {
+        address newCampaign = (address) (new CrowdCollab(
             msg.sender,
             minContribution,
             description
-        );
+        ));
 
         campaigns.push(newCampaign);
     }
@@ -28,7 +28,7 @@ contract CampaignCreator {
     /**
     * @dev get all deployed campaigns
     */
-    function getDeployedCampaigns() public view returns (address[]) {
+    function getDeployedCampaigns() public view returns (address[] memory) {
         return campaigns;
     }
 }
